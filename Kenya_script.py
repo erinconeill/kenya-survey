@@ -1,17 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[12]:
-
-
+# Libraries
 import nltk
 nltk.download('stopwords')
-
-
-# In[32]:
-
-
-# Libraries
 import csv
 import pandas as pd
 import seaborn as sns
@@ -28,21 +20,12 @@ from sklearn.cluster import KMeans
 from scipy.stats import ttest_ind
 from scipy.stats import zscore
 
-
-# In[33]:
-
-
 # Read file as dataframe
 file = "Kenya Relief Survey.xlsx"
 df = pd.read_excel(file)
 df
 
-
-# In[34]:
-
-
 # Preprocessing data - answering baseline questions (i.e., how many communities, avg. age, female/male distribution)
-
 # Gender
 # Count the occurrences of each gender
 gender_distribution = df['Gender'].value_counts()
@@ -81,12 +64,7 @@ df['# of Children'] = pd.to_numeric(df['# of Children'], errors='coerce')
 average_children = df['# of Children'].mean()
 print(f"The average number of children is: {average_children:.2f}")
 
-# Ideally -- organize communities into regions and create corresponding column (currently too many distinct communities)
-
-
-# In[35]:
-
-
+# Ideally -- organize communities into regions and create corresponding columns (currently too many distinct communities)
 # Standardize distance data
 
 # Function to convert various distance measurements to kilometers
@@ -129,12 +107,7 @@ def to_kilometers(distance_str):
 
 # Apply the conversion function to each value in the column and store the results in a new column
 df['Standardized Distance'] = df['How far is the health center?'].apply(to_kilometers)
-
 display(df)
-
-
-# In[36]:
-
 
 # Standardize 'days off' data
 
@@ -167,10 +140,6 @@ def standardize_days(str_value):
 df['Days Unable to Work'] = df['How many days have you missed work this year due to illness?'].apply(standardize_days)
 
 display(df)
-
-
-# In[37]:
-
 
 # What were the top changes that persons in leadership would like to see occur? 
 # Filter by leadership and communities (too many communities for meaningful analysis)
@@ -258,10 +227,6 @@ category_counts_request = categorize_responses(leadership, "If you could make a 
 print("\nCategory counts for 'If you could make a request for the community what would you ask for?':")
 print(category_counts_request)
 
-
-# In[38]:
-
-
 # What were the top changes at persons not in leadership would like to see occur?
 # Filter by leadership and communities (too many communities for meaningful analysis)
 
@@ -290,10 +255,6 @@ print(category_counts_request)
 # Rank in order the most important request that each of these communities would like to have fulfilled 
 # environment, health, social support, education, food, housing, employment 
 
-
-# In[39]:
-
-
 # Define stopwords
 stop_words = set(stopwords.words('english'))
 
@@ -318,10 +279,6 @@ display(disease_counts_2)
 # Process the column 'What are the biggest health problems in your community?'
 disease_counts_3 = df['What are the biggest health problems in your community? '].dropna().apply(process_text).explode().value_counts()
 display(disease_counts_3)
-
-
-# In[40]:
-
 
 # Function to categorize diseases
 def categorize_diseases(disease):
@@ -400,16 +357,6 @@ plt.ylabel('Disease Category')
 plt.title('Frequency of Disease Categories by Age and Gender')
 plt.legend(title='Gender')
 
-
-# In[41]:
-
-
-df
-
-
-# In[44]:
-
-
 # Find the the maximum value in the col and remove (outlier)
 max_index = df['Days Unable to Work'].idxmax()
 df = df.drop(max_index)
@@ -450,10 +397,6 @@ plt.show()
 # Correlation coefficient is positive but relatively low (close to 0)
 # It suggests a weak positive linear relationship between the variables
 # Some tendency for the number of days taken off work to increase slightly as the distance to the clinic increases, but the relationship is not strong
-
-
-# In[17]:
-
 
 def record_common_words(df, column_name):
     # Get the stopwords and punctuation marks
@@ -547,10 +490,6 @@ for word, phrases in categorized_phrases.items():
     print(f"Phrases containing '{word}':")
     print(phrases)
 
-
-# In[23]:
-
-
 # Relate morbidity and mortality differences against each community's level of NGO intervention. Positive perceived impact or not?
 # Is there any non-governmental organization working in your community?
 
@@ -612,10 +551,6 @@ count_ngos = df_copy['NGO Presence'].value_counts()
 print("Number of 'No':", count_ngos['No'])
 print("Number of 'Yes':", count_ngos['Yes'])
 
-
-# In[46]:
-
-
 # Define age bins and labels
 bins = [0, 18, 25, 35, 45, 60, 100]
 labels = ['0-18', '19-25', '26-35', '36-45', '46-60', '61-100']
@@ -637,4 +572,3 @@ plt.grid(axis='y')
 
 # Show the plot
 plt.show()
-
