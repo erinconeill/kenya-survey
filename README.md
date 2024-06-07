@@ -20,3 +20,16 @@ The analysis provides insights into various aspects of health, community needs, 
 
 ### Conclusion
 This analysis offers valuable insights that can inform healthcare interventions, resource allocation, and policy decisions in the surveyed communities. Further research and targeted interventions may be needed to address specific health challenges and meet community needs effectively.
+
+## Dependencies 
+- [csv](https://docs.python.org/3/library/csv.html)
+- [pandas](https://pandas.pydata.org/)
+- [seaborn](https://seaborn.pydata.org/)
+- [matplotlib](https://matplotlib.org/)
+- [numpy](https://numpy.org/)
+- [collections](https://docs.python.org/3/library/collections.html)
+- [re](https://docs.python.org/3/library/re.html)
+- [nltk](https://www.nltk.org/)
+- [scikit-learn](https://scikit-learn.org/stable/)
+- [scipy](https://www.scipy.org/)
+
